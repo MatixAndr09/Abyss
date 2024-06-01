@@ -4,6 +4,22 @@ from rich import console
 cmd = console.Console()
 
 
+class Command:
+    def handler(name):
+        commands = ["exit", "pwd"]
+        if name == "exit":
+            exit()
+        elif name == "pwd":
+            try:
+                cmd.print(f"\n[white bold]Path >>> [/]'{os.getcwd()}'\n")
+            except Exception as e:
+                cmd.print(
+                    f"\n[red bold](command.handler/ERROR)[/] -> Error while getting current working directory: {e}\n")
+        if name not in commands:
+            cmd.print(
+                f"\n[red bold](command.handler/ERROR)[/] -> Command '{name}' not found in anviable command list\n")
+
+
 def print_gradient(text, start_color, end_color, steps=10):
     for i in range(len(text)):
         r = int(start_color[0] + (end_color[0] - start_color[0]) * i / (len(text) - 1))
@@ -20,9 +36,4 @@ print("\n")
 while True:
     working_dir = os.getcwd()
     cli = cmd.input(f"[white dim]{working_dir}[/] >>> ")
-    if cli == "help":
-        cmd.print("Commands:\n\n[magenta bold]help[/] - Shows this message\n[magenta bold]exit[/] - Exits the program")
-    elif cli == "exit":
-        break
-    else:
-        cmd.print("[red bold](ERR)[/]  Command not found!")
+    Command.handler(cli)
