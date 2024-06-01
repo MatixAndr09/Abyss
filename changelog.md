@@ -1,4 +1,4 @@
-# 01.06.2024 • 22:
+# 01.06.2024 • 22:23
 
 - Added `ls` command to command list, and it's working! _**(It shows files in current dir)**_
 
