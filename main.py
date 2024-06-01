@@ -6,7 +6,7 @@ cmd = console.Console()
 
 class Command:
     def handler(name):
-        commands = ["exit", "pwd"]
+        commands = ["exit", "pwd", "ls"]
         if name == "exit":
             exit()
         elif name == "pwd":
@@ -15,12 +15,21 @@ class Command:
             except Exception as e:
                 cmd.print(
                     f"\n[red bold](command.handler/ERROR)[/] -> Error while getting current working directory: {e}\n")
+        elif name == "ls":
+            try:
+                cmd.print(f"\n[bold]Files in '{os.getcwd()}':[/]\n")
+                for file in os.listdir():
+                    cmd.print(f"[dim white bold italic] -> {file}")
+                cmd.print("\n")
+            except Exception as e:
+                cmd.print(
+                    f"\n[red bold](command.handler/ERROR)[/] -> Error while listing files in current working directory: {e}\n")
         if name not in commands:
             cmd.print(
                 f"\n[red bold](command.handler/ERROR)[/] -> Command '{name}' not found in anviable command list\n")
 
 
-def print_gradient(text, start_color, end_color, steps=10):
+def show_gradient_text(text, start_color, end_color, steps=10):
     for i in range(len(text)):
         r = int(start_color[0] + (end_color[0] - start_color[0]) * i / (len(text) - 1))
         g = int(start_color[1] + (end_color[1] - start_color[1]) * i / (len(text) - 1))
@@ -31,8 +40,9 @@ def print_gradient(text, start_color, end_color, steps=10):
 
 
 print("\n")
-print_gradient("Abyss [Version 0.2]\n(C) MatixAndr09. All rights reserved.\n", (84, 0, 84), (191, 65, 147))
+show_gradient_text("Abyss [Version 0.2]\n(C) MatixAndr09. All rights reserved.\n", (84, 0, 84), (191, 65, 147))
 print("\n")
+
 while True:
     working_dir = os.getcwd()
     cli = cmd.input(f"[white dim]{working_dir}[/] >>> ")
