@@ -1,2 +1,2 @@
 # Abyss
-Abyss is a better windows CLI made in python.
+Abyss is a better windows CLI made in python. It adds function that are used in linux like you can transfer output of a command to a file.
